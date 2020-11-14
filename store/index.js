@@ -3,8 +3,8 @@ export const state = () => ({
   indexedUser: 0,
   users: [
     {
-      name: "Sophia Gonzalez",
-      img: "/profile2.jpg",
+      name: "Paris Maderna",
+      img: "/paris-innovate.jpg",
       location: "San Francisco",
       bio:
         "Had a brief careerwith jack-in-the-boxes in Phoenix, AZ. Spent several months managing squirt guns and implementing toy elephants.",

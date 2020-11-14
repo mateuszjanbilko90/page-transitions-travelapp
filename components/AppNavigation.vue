@@ -1,12 +1,20 @@
 <template>
-  <header :class="{ 
-    'place' : (page === 'place'), 
-    'group' : (page === 'group'), 
-    'index' : (page === 'index') 
-  }">
-
+  <header
+    :class="{
+      place: page === 'place',
+      group: page === 'group',
+      index: page === 'index'
+    }"
+  >
     <transition-group name="bk" tag="div" class="bk-img">
-      <div key="img1" v-if="page === 'index'" class="header-img1"></div>
+      <div key="velo" v-if="page === 'index'" class="grid-container header">
+        <div class="left">
+          <img class="hero-img" src="velo.jpg" alt="" />
+        </div>
+        <div class="right">
+          <img class="hero-img" src="paris-innovate.jpg" alt="" />
+        </div>
+      </div>
       <div key="img2" v-else-if="page === 'place'" class="header-img2"></div>
       <div key="img3" v-else class="header-img3"></div>
     </transition-group>
@@ -14,14 +22,20 @@
     <div class="nav-wrapper">
       <nav>
         <ul>
-          <nuxt-link exact to="/"><li>{{ selectedUser.name | firstName }}'s Home</li></nuxt-link>
-          <nuxt-link to="/place"><li>{{ selectedUser.name | firstName }}'s Places</li></nuxt-link>
-          <nuxt-link to="/group"><li>{{ selectedUser.name | firstName }}'s Group Trips</li></nuxt-link>
+          <nuxt-link exact to="/"><li>Paris Maderna</li></nuxt-link>
+          <nuxt-link to="/place"><li>about</li></nuxt-link>
+          <nuxt-link to="/group"><li>products</li></nuxt-link>
         </ul>
 
         <div @click="menuOpened = !menuOpened">
-          <icon-base class="menu" icon-name="menu" icon-color="white" width="28" height="28">
-            <icon-three-dot/>
+          <icon-base
+            class="menu"
+            icon-name="menu"
+            icon-color="white"
+            width="28"
+            height="28"
+          >
+            <icon-three-dot />
           </icon-base>
         </div>
         <app-menu-drawer :menuOpened="menuOpened" />
@@ -35,20 +49,20 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
-import { TimelineMax, Expo, Sine, Back } from 'gsap'
-import AppStats from './AppStats.vue'
-import IconBase from './IconBase.vue'
-import IconThreeDot from './IconThreeDot.vue'
-import AppMenuDrawer from './AppMenuDrawer.vue'
-import AppNavTransition from './AppNavTransition.vue'
+import { mapState, mapGetters } from "vuex";
+import { TimelineMax, Expo, Sine, Back } from "gsap";
+import AppStats from "./AppStats.vue";
+import IconBase from "./IconBase.vue";
+import IconThreeDot from "./IconThreeDot.vue";
+import AppMenuDrawer from "./AppMenuDrawer.vue";
+import AppNavTransition from "./AppNavTransition.vue";
 
 export default {
   data() {
     return {
       saved: false,
       menuOpened: false
-    }
+    };
   },
   components: {
     AppStats,
@@ -59,67 +73,67 @@ export default {
   },
   methods: {
     openMenu() {
-      TweenMax.to('.first', 0.2, {
+      TweenMax.to(".first", 0.2, {
         x: 18,
         ease: Sine.easeOut
-      })
-      TweenMax.to('.last', 0.2, {
+      });
+      TweenMax.to(".last", 0.2, {
         x: -18,
         ease: Sine.easeOut
-      })
+      });
       TweenMax.staggerTo(
-        '.first, .middle, .last',
+        ".first, .middle, .last",
         0.2,
         {
-          fill: '#7eebe6',
+          fill: "#7eebe6",
           ease: Sine.easeOut
         },
         0.04
-      )
+      );
     },
     closeMenu() {
-      TweenMax.to('.first', 0.2, {
+      TweenMax.to(".first", 0.2, {
         x: 0,
         ease: Sine.easeIn
-      })
-      TweenMax.to('.last', 0.2, {
+      });
+      TweenMax.to(".last", 0.2, {
         x: 0,
         ease: Sine.easeIn
-      })
-      TweenMax.to('.first, .middle, .last', 0.2, {
-        fill: '#fff'
-      })
+      });
+      TweenMax.to(".first, .middle, .last", 0.2, {
+        fill: "#fff"
+      });
     }
   },
   computed: {
-    ...mapState(['page']),
-    ...mapGetters(['selectedUser'])
+    ...mapState(["page"]),
+    ...mapGetters(["selectedUser"])
   },
   filters: {
     firstName(input) {
-      var lastIndex = input.lastIndexOf(' ')
-      return input.substring(0, lastIndex)
+      var lastIndex = input.lastIndexOf(" ");
+      return input.substring(0, lastIndex);
     }
   },
   watch: {
     menuOpened(val) {
       if (val) {
-        this.openMenu()
+        this.openMenu();
       } else {
-        this.closeMenu()
+        this.closeMenu();
       }
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
 header {
   width: 100vw;
-  height: 300px;
+  height: 400px;
   position: relative;
   &:before {
-    content: '';
+    content: "";
     z-index: 10;
     position: absolute;
     top: 0;
@@ -154,35 +168,52 @@ header {
     opacity: 0.6;
   }
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     z-index: -1;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: #000;
+    background: rgb(255, 255, 255);
   }
 }
 
-@mixin header ($imgurl) {
+@mixin header($imgurl) {
+  // margin-top: 6vh;
   background: url($imgurl) center center;
-  background-size: cover;
-  position: absolute;
+
   width: 100vw;
-  height: 300px;
+  height: 350px;
+}
+.grid-container {
+  width: 100%;
+  display: flex;
+  grid-template-columns: 1fr 1.2fr 0.8fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 20px 20px;
+}
+.right {
+  @include header("/paris-innovate.jpg");
+}
+.left {
+  @include header("/velo.jpg");
+  grid-area: 1 / 1 / 2 / 3;
+}
+.hero-img {
+  height: 400px;
 }
 
 .header-img1 {
-  @include header('/header1.jpg');
+  @include header("/header1.jpg");
 }
 
 .header-img2 {
-  @include header('/header2.jpg');
+  @include header("/header2.jpg");
 }
 
 .header-img3 {
-  @include header('/header3.jpg');
+  @include header("/header3.jpg");
 }
 
 .bk-enter-active,
@@ -199,7 +230,7 @@ header {
 .bk-img {
   position: absolute;
   width: 100vw;
-  height: 300px;
+  height: 400px;
   overflow: hidden;
   top: 0;
 }

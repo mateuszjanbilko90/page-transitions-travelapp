@@ -13,11 +13,10 @@ import AppFooter from "~/components/AppFooter.vue";
 export default {
   components: {
     AppNavigation,
-    AppFooter,
-  },
+    AppFooter
+  }
 };
 </script>
-
 
 <style>
 /* common styles shared through the application */
@@ -72,6 +71,7 @@ h4 {
 main {
   max-width: 1000px;
   margin: 0 auto;
+  /* margin-top: 10vh; */
   display: flex;
   justify-content: space-between;
 }
